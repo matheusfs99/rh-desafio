@@ -16,6 +16,10 @@ class Company(models.Model):
     create_user = models.UUIDField(editable=False, null=True)
     update_user = models.UUIDField(editable=False, null=True)
 
+    logo = models.ImageField(upload_to='images/', null=True, blank=True)
+    name = models.CharField(max_length=100)
+    legal_number = models.CharField(max_length=100)
+
 
 class Department(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
@@ -26,6 +30,11 @@ class Department(models.Model):
 
     create_user = models.UUIDField(editable=False, null=True)
     update_user = models.UUIDField(editable=False, null=True)
+
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    status = models.BooleanField()
+    admin = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Employee(models.Model):
@@ -40,8 +49,8 @@ class Employee(models.Model):
 
     )
     gender = models.CharField(max_length=1, choices=GENDER)
-    # department = models.ForeignKey(Department, on_delete=models.PROTECT)
-    # company = models.ForeignKey(Company, on_delete=models.PROTECT)
+    department = models.ForeignKey(Department, on_delete=models.PROTECT)
+    company = models.ForeignKey(Company, on_delete=models.PROTECT)
     phone = models.CharField(max_length=14, default='Sem Telefone')
     role = models.CharField(max_length=50, default='Sem Atribuição')
     age = models.IntegerField(default=0)
