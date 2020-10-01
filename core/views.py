@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Company
 from .forms import CompanyForm
+from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
@@ -8,7 +9,16 @@ def index(request):
 
 def list_companys(request):
     context = {}
-    companys = Company.objects.all()
+    auto_complete = Company.objects.all()
+    context['auto_complete'] = auto_complete
+    search = request.GET.get('search')
+    if search:
+        companys_list = Company.objects.filter(name__icontains=search).order_by('name')
+    else:
+        companys_list = Company.objects.all()
+    paginator = Paginator(companys_list, 10)
+    page = request.GET.get('page')
+    companys = paginator.get_page(page)
     context['companys'] = companys
     return render(request, 'core/companys.html', context)
 
@@ -23,6 +33,11 @@ def register_company(request):
             return redirect('/')
     context['form'] = form
     return render(request, 'core/register_company.html', context)
+
+
+def company(request):
+    return render(request, 'core/company.html')
+
 
 
 

@@ -6,7 +6,17 @@
     <a href="{% url 'core:register_company' %}" class="btn btn-primary" style="margin-top: 20px;">Cadastrar Empresa</a>
 </div>
 
-
+<div class="mx-5" style="margin-bottom: 30px;">
+    <form method="get" id="search-form">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <input class="form-control" type="text" id="search" name="search"
+                   placeholder="Procure por uma empresa...">
+            <button type="submit" class="btn"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+</div>
+    
 {% if companys %}
 <div class="mx-5 text-center">
     <table class="table">
@@ -20,7 +30,13 @@
         <tbody>
             {% for company in companys %}
             <tr>
-                <td><img src="{{ company.logo.url }}" width="40px"></th>
+                <td>
+                    {% if company.logo %}
+                    <img src="{{ company.logo.url }}" width="40px">
+                    {% else %}
+                    <label>Sem Logo</label>
+                    {% endif %}
+                </th>
                 <td><a href="">{{ company.name }}</a></th>
                 <td>{{ company.legal_number }}</th>
             </tr>
@@ -28,6 +44,29 @@
         </tbody>
         
     </table>
+</div>
+<div>
+    <ul class="pagination justify-content-center">
+        {% if companys.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ companys.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% endif %}
+        <li class="page-item">
+            <p class="page-link">
+                {{ companys.number }} de {{ companys.paginator.num_pages }}
+            </p>
+        </li>
+        {% if companys.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ companys.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
 </div>
 {% else %}
 <h4>Cadastre uma Empresa</h4>
