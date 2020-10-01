@@ -16,7 +16,7 @@ class Company(models.Model):
     create_user = models.UUIDField(editable=False, null=True)
     update_user = models.UUIDField(editable=False, null=True)
 
-    logo = models.ImageField(upload_to='images/', null=True, blank=True)
+    logo = models.ImageField(upload_to='logos/', null=True, blank=True)
     name = models.CharField(max_length=100)
     legal_number = models.CharField(max_length=100)
 

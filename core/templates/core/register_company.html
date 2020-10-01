@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="py-5 text-center">
+    <h1>Cadastrar Empresa</h1>
+</div>
+<div class="mx-5">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Nome: </label>
+        {{ form.name }}
+        <br>
+        <label>CNPJ: </label>
+        {{ form.legal_number }}
+        <br>
+        <label>Logo: </label><br>
+        {{ form.logo }}
+        <br>
+        <div align="center">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <a href="{% url 'core:companys' %}" class="btn btn-danger">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

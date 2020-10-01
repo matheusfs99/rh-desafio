@@ -3,7 +3,7 @@
 {% block content %}
 <div class="py-5 text-center">
     <h1>Empresas</h1>
-    <button class="btn btn-primary" style="margin-top: 20px;">Cadastrar Empresa</button>
+    <a href="{% url 'core:register_company' %}" class="btn btn-primary" style="margin-top: 20px;">Cadastrar Empresa</a>
 </div>
 
 
@@ -18,13 +18,13 @@
             </tr>
         </thead>
         <tbody>
+            {% for company in companys %}
             <tr>
-                {% for company in companys %}
                 <td><img src="{{ company.logo.url }}" width="40px"></th>
-                <td><a href="#">{{ company.name }}</a></th>
+                <td><a href="">{{ company.name }}</a></th>
                 <td>{{ company.legal_number }}</th>
-                {% endfor %}
             </tr>
+            {% endfor %}
         </tbody>
         
     </table>
