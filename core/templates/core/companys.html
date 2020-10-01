@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="py-5 text-center">
+    <h1>Empresas</h1>
+    <button class="btn btn-primary" style="margin-top: 20px;">Cadastrar Empresa</button>
+</div>
+
+
+{% if companys %}
+<div class="mx-5 text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Logo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Legal Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for company in companys %}
+                <td><img src="{{ company.logo.url }}" width="40px"></th>
+                <td><a href="#">{{ company.name }}</a></th>
+                <td>{{ company.legal_number }}</th>
+                {% endfor %}
+            </tr>
+        </tbody>
+        
+    </table>
+</div>
+{% else %}
+<h4>Cadastre uma Empresa</h4>
+{% endif %}
+{% endblock %}

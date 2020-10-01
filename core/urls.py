@@ -1,8 +1,12 @@
 from django.urls import path
+from .views import *
 
 app_name = 'core'
 
 urlpatterns = [
+
+   path('', list_companys, name='companys'),
+   path('cadastrar-colaborador/', create_employee, name='create_employee')
 
    # path('process-list-full', ProcessList.as_view(), name='process-list-full'),
    # path('process-list-partner', ProcessListPartner.as_view(), name='process-list-partner'),
