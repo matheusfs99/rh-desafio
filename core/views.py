@@ -35,8 +35,11 @@ def register_company(request):
     return render(request, 'core/register_company.html', context)
 
 
-def company(request):
-    return render(request, 'core/company.html')
+def company_page(request, id):
+    context = {}
+    company = Company.objects.get(id=id)
+    context['company'] = company
+    return render(request, 'core/company_page.html', context)
 
 
 
