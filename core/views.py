@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Company, Department
+from .models import Company, Department, Employee
 from .forms import CompanyForm, DepartmentForm
 from django.core.paginator import Paginator
 from django.http.response import Http404
@@ -73,6 +73,13 @@ def create_department(request, company_id):
             obj.save()
             return redirect('/empresa/{}'.format(company_id))
     return render(request, 'core/create_department.html', context)
+
+
+def department_page(request, id):
+    department = Department.objects.get(id=id)
+    employees = Employee.objects.filter(department__exact=id)
+    context = {'department': department, 'employees': employees}
+    return render(request, 'core/department_page.html', context)
 
 
 
