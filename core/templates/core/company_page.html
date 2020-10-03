@@ -17,11 +17,29 @@
     <div class="col">
         <h3>Departamentos da Empresa:</h3>
         {% if departments %}
-        <ul class="list-group list-group-flush">
-            {% for department in departments %}
-            <a href="" class="list-group-item list-group-item-action">{{ department.name }}</a>
-            {% endfor %}
-        </ul>
+        <div class="mx-5 text-center">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for department in departments %}
+                    <tr>
+                        <td>{{ department.name }}</td>
+                        {% if department.status is True %}
+                        <td>Ativo</td>
+                        {% else %}
+                        <td>Inativo</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
         {% else %}
         <h5>Não há departamentos para esta empresa.<br>Cadastre algum departamento que ele aparecerá aqui.</h5>
         {% endif %}
