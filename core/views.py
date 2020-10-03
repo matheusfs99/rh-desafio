@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Company
+from .models import Company, Department
 from .forms import CompanyForm
 from django.core.paginator import Paginator
 
@@ -25,13 +25,12 @@ def list_companys(request):
 
 def register_company(request):
     context = {}
-    form = CompanyForm()
+    form = CompanyForm(request.POST or None, request.FILES or None)
+    context['form'] = form
     if request.POST:
-        form = CompanyForm(request.POST or None, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/')
-    context['form'] = form
     return render(request, 'core/register_company.html', context)
 
 
@@ -39,9 +38,20 @@ def company_page(request, id):
     context = {}
     company = Company.objects.get(id=id)
     context['company'] = company
+    departments = Department.objects.filter(company__exact=id)
+    context['departments'] = departments
     return render(request, 'core/company_page.html', context)
 
 
+def edit_company(request, id):
+    company = Company.objects.get(id=id)
+    form = CompanyForm(request.POST or None, request.FILES or None, instance=company)
+    context = {'form': form}
+    if request.POST:
+        if form.is_valid():
+            form.save()
+            return redirect('/empresa/{}'.format(id))
+    return render(request, 'core/register_company.html', context)
 
 
 def create_employee(request):

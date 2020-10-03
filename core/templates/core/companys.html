@@ -36,9 +36,9 @@
                     {% else %}
                     <label>Sem Logo</label>
                     {% endif %}
-                </th>
-                <td><a href="{% url 'core:company_page' company.id %}">{{ company.name }}</a></th>
-                <td>{{ company.legal_number }}</th>
+                </td>
+                <td><a href="{% url 'core:company_page' company.id %}">{{ company.name }}</a></td>
+                <td>{{ company.legal_number }}</td>
             </tr>
             {% endfor %}
         </tbody>

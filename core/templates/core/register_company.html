@@ -2,11 +2,12 @@
 
 {% block content %}
 <div class="py-5 text-center">
-    <h1>Cadastrar Empresa</h1>
+    <h1>Registro de Empresa</h1>
 </div>
 <div class="mx-5">
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        <input type="number" name="id_company" value="{{ company.id }}" hidden>
         <label>Nome: </label>
         {{ form.name }}
         <br>
@@ -17,8 +18,13 @@
         {{ form.logo }}
         <br>
         <div align="center">
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
-            <a href="{% url 'core:companys' %}" class="btn btn-danger">Cancelar</a>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <script>
+                function retornar() {
+                    history.go(-1);
+                }
+            </script>
+            <button onclick="retornar()" class="btn btn-danger">Cancelar</button>
         </div>
     </form>
 </div>

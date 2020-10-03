@@ -20,6 +20,9 @@ class Company(models.Model):
     name = models.CharField(max_length=100)
     legal_number = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 
 class Department(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
@@ -35,6 +38,9 @@ class Department(models.Model):
     name = models.CharField(max_length=100)
     status = models.BooleanField()
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{}: {}'.format(self.name, self.company)
 
 
 class Employee(models.Model):

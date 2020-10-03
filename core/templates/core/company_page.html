@@ -1,10 +1,29 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+
 <div align="center" class="my-5">
     <img src="{{ company.logo.url }}" width="10%" style="margin-bottom: 20px;">
-    <h2>{{ company.name }}</h2>
+    <h2>{{ company.name }}</h2><br>
+    <a href="{% url 'core:edit_company' company.id %}" class="btn btn-info">Editar Empresa</a>
+    <button class="btn btn-danger" id="btn-delete-company">Excluir Empresa</button>
 </div>
 
-
+<div class="row">
+    <div class="col">
+        <h3>Departamentos da Empresa:</h3>
+        {% if departments %}
+        <ul class="list-group list-group-flush">
+            {% for department in departments %}
+            <a href="#" class="list-group-item list-group-item-action">{{ department.name }}</a>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h5>tem porra nenhuma aq</h5>
+        {% endif %}
+    </div>
+    <div class="col" align="right">
+        <button class="btn btn-primary">Cadastrar novo Departamento</button>
+    </div>
+</div>
 {% endblock %}
