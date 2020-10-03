@@ -10,6 +10,7 @@ urlpatterns = [
    path('cadastrar-colaborador/', create_employee, name='create_employee'),
    path('empresa/<uuid:id>/', company_page, name='company_page'),
    path('editar-empresa/<uuid:id>/', edit_company, name='edit_company'),
+   path('empresa/<uuid:id>/delete', delete_company, name='delete_company'),
 
    # path('process-list-full', ProcessList.as_view(), name='process-list-full'),
    # path('process-list-partner', ProcessListPartner.as_view(), name='process-list-partner'),
