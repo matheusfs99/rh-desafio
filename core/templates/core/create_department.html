@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="py-5 text-center">
+    <h1>Registro de Departamento</h1>
+</div>
+<div class="mx-5">
+    <form method="post">
+        {% csrf_token %}
+        <label>Nome: </label>
+        {{ form.name }}
+        <br>
+        <label>Status:<br> Ativo</label>
+        {{ form.status }}
+        <br>
+        <div align="center">
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <script>
+                function retornar() {
+                    history.go(-1);
+                }
+            </script>
+            <button onclick="retornar()" class="btn btn-danger">Cancelar</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

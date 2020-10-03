@@ -19,15 +19,15 @@
         {% if departments %}
         <ul class="list-group list-group-flush">
             {% for department in departments %}
-            <a href="#" class="list-group-item list-group-item-action">{{ department.name }}</a>
+            <a href="" class="list-group-item list-group-item-action">{{ department.name }}</a>
             {% endfor %}
         </ul>
         {% else %}
-        <h5>tem porra nenhuma aq</h5>
+        <h5>Não há departamentos para esta empresa.<br>Cadastre algum departamento que ele aparecerá aqui.</h5>
         {% endif %}
     </div>
     <div class="col" align="right">
-        <button class="btn btn-primary">Cadastrar novo Departamento</button>
+        <a href="{% url 'core:create_department' company.id %}" class="btn btn-primary">Cadastrar novo Departamento</a>
     </div>
 </div>
 

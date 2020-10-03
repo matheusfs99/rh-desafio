@@ -1,5 +1,5 @@
 from django import forms
-from .models import Company
+from .models import Company, Department
 
 class CompanyForm(forms.ModelForm):
     class Meta:
@@ -8,4 +8,13 @@ class CompanyForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'legal_number': forms.TextInput(attrs={'class': 'form-control'})
+        }
+
+
+class DepartmentForm(forms.ModelForm):
+    class Meta:
+        model = Department
+        fields = ['name', 'status']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'})
         }

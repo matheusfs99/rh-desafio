@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Company, Department
-from .forms import CompanyForm
+from .forms import CompanyForm, DepartmentForm
 from django.core.paginator import Paginator
 from django.http.response import Http404
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def index(request):
@@ -25,9 +26,8 @@ def list_companys(request):
 
 
 def register_company(request):
-    context = {}
     form = CompanyForm(request.POST or None, request.FILES or None)
-    context['form'] = form
+    context = {'form': form}
     if request.POST:
         if form.is_valid():
             form.save()
@@ -36,11 +36,9 @@ def register_company(request):
 
 
 def company_page(request, id):
-    context = {}
     company = Company.objects.get(id=id)
-    context['company'] = company
     departments = Department.objects.filter(company__exact=id)
-    context['departments'] = departments
+    context = {'company': company, 'departments': departments}
     return render(request, 'core/company_page.html', context)
 
 
@@ -62,6 +60,21 @@ def delete_company(request, id):
     except Exception:
         raise Http404()
     return redirect('/')
+
+
+def create_department(request, company_id):
+    form = DepartmentForm(request.POST or None)
+    context = {'form': form}
+    if request.POST:
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.company = get_object_or_404(Company, id=company_id)
+            obj.admin = request.user
+            obj.save()
+            return redirect('/empresa/{}'.format(company_id))
+    return render(request, 'core/create_department.html', context)
+
+
 
 
 def create_employee(request):

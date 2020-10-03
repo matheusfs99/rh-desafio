@@ -36,7 +36,7 @@ class Department(models.Model):
 
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    status = models.BooleanField()
+    status = models.BooleanField(default=True)
     admin = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
