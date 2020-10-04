@@ -11,8 +11,6 @@ def index(request):
 
 def list_companys(request):
     context = {}
-    auto_complete = Company.objects.all()
-    context['auto_complete'] = auto_complete
     search = request.GET.get('search')
     if search:
         companys_list = Company.objects.filter(name__icontains=search).order_by('name')
@@ -37,7 +35,14 @@ def register_company(request):
 
 def company_page(request, id):
     company = Company.objects.get(id=id)
-    departments = Department.objects.filter(company__exact=id)
+    search = request.GET.get('search')
+    if search:
+        departments = Department.objects.filter(company__exact=id).filter(name__icontains=search)
+    else:
+        departments = Department.objects.filter(company__exact=id)
+    paginator = Paginator(departments, 10)
+    page = request.GET.get('page')
+    departments = paginator.get_page(page)
     context = {'company': company, 'departments': departments}
     return render(request, 'core/company_page.html', context)
 
