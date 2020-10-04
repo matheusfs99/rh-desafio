@@ -13,6 +13,8 @@ urlpatterns = [
 
    path('cadastrar-departamento/<uuid:company_id>/', create_department, name='create_department'),
    path('departamento/<uuid:id>/', department_page, name='department_page'),
+   path('editar-departamento/<uuid:id>/', edit_department, name='edit_department'),
+   path('departamento/<uuid:id>/delete', delete_department, name='delete_department'),
 
 
 

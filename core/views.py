@@ -82,6 +82,24 @@ def department_page(request, id):
     return render(request, 'core/department_page.html', context)
 
 
+def edit_department(request, id):
+    department = Department.objects.get(id=id)
+    form = DepartmentForm(request.POST or None, instance=department)
+    context = {'form': form}
+    if request.POST:
+        if form.is_valid():
+            form.save()
+            return redirect('/departamento/{}'.format(id))
+    return render(request, 'core/create_department.html', context)
+
+
+def delete_department(request, id):
+    try:
+        department = Department.objects.get(id=id)
+        department.delete()
+    except Exception:
+        raise Http404()
+    return redirect('/empresa/{}'.format(department.company.id))
 
 
 def create_employee(request):

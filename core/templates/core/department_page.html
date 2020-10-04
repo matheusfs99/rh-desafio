@@ -7,7 +7,15 @@
     <img src="{{ department.company.logo.url }}" width="10%" style="margin-bottom: 20px;">
     {% endif %}
     <h2>{{ department.company }}</h2><br>
-    <h1>{{ department.name }}</h1>
+    <h1>{{ department.name }}
+        {% if department.status is False %}
+         (Inativo)
+        {% endif %}
+    </h1>
+    <a href="{% url 'core:edit_department' department.id %}" class="btn btn-info">Editar Departamento</a>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteDepartment">
+        Excluir Departamento
+    </button>
 </div>
 
 <div class="row no-gutters">
@@ -50,5 +58,30 @@
         <a href="" class="btn btn-primary">Cadastrar novo Funcionário</a>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalDeleteDepartment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Deseja mesmo excluir esta empresa?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Se a exclusão for confirmada, TODOS os registros relacionadas à empresa também serão excluídos.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+          <form action="delete" method="post">
+              {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sim! Quero excluir</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
