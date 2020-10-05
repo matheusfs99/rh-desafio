@@ -131,7 +131,14 @@ def create_department(request, company_id):
 def department_page(request, id):
     user = request.user
     department = Department.objects.get(id=id)
-    employees = Employee.objects.filter(department__exact=id)
+    search = request.GET.get('search')
+    if search:
+        employees = Employee.objects.filter(department__exact=id).filter(name__icontains=search)
+    else:
+        employees = Employee.objects.filter(department__exact=id)
+    paginator = Paginator(employees, 5)
+    page = request.GET.get('page')
+    employees = paginator.get_page(page)
     context = {'department': department, 'employees': employees, 'user': user}
     return render(request, 'core/department_page.html', context)
 

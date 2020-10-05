@@ -28,6 +28,16 @@
 
 <div class="row no-gutters">
     <div class="col-sm-6 col-md-8">
+        <div class="mx-1" style="margin-bottom: 30px;">
+          <form method="get" id="search-form">
+              {% csrf_token %}
+              <div class="input-group mb-3">
+                  <input class="form-control" type="text" id="search" name="search"
+                         placeholder="Procure por um colaborador...">
+                  <button type="submit" class="btn"><i class="fas fa-search"></i></button>
+              </div>
+          </form>
+        </div>
         <h3>Funcionários deste Departamento:</h3>
         {% if employees %}
         <div>
@@ -58,6 +68,29 @@
                 </tbody>
             </table>
         </div>
+        <div>
+          <ul class="pagination justify-content-center">
+              {% if employees.has_previous %}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ employees.previous_page_number }}" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                  </a>
+              </li>
+              {% endif %}
+              <li class="page-item">
+                  <p class="page-link">
+                      {{ employees.number }} de {{ employees.paginator.num_pages }}
+                  </p>
+              </li>
+              {% if employees.has_next %}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ employees.next_page_number }}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                  </a>
+              </li>
+              {% endif %}
+          </ul>
+      </div>
         {% else %}
         <h5>Não há funcionários neste departamentp desta empresa.<br>Cadastre algum funcionário que ele aparecerá aqui.</h5>
         {% endif %}
