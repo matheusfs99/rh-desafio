@@ -38,7 +38,7 @@
               </div>
           </form>
         </div>
-        <h3>Funcionários deste Departamento:</h3>
+        <h3>Colaboradores deste Departamento:</h3>
         {% if employees %}
         <div>
             <table class="table">
@@ -56,7 +56,7 @@
                 <tbody>
                     {% for employee in employees %}
                     <tr>
-                        <td>{{ employee.name }}</td>
+                        <td><a href="{% url 'core:employee_page' employee.id %}">{{ employee.name }}</a></td>
                         <td>{{ employee.gender }}</td>
                         <td>{{ employee.phone }}</td>
                         <td>{{ employee.role }}</td>
@@ -96,7 +96,7 @@
         {% endif %}
     </div>
     <div class="col-6 col-md-4" align="right">
-        <a href="{% url 'core:create_employee' department.id %}" class="btn btn-primary">Cadastrar novo Funcionário</a>
+        <a href="{% url 'core:create_employee' department.id %}" class="btn btn-primary">Cadastrar novo Colaborador</a>
     </div>
 </div>
 
@@ -112,7 +112,7 @@
           </button>
         </div>
         <div class="modal-body">
-          Se a exclusão for confirmada, TODOS os registros relacionadas à empresa também serão excluídos.
+          Se a exclusão for confirmada, TODOS os registros relacionadas ao departamento também serão excluídos.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>

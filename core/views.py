@@ -187,7 +187,29 @@ def create_employee(request, department_id):
 def delete_employee(request, id):
     try:
         employee = Employee.objects.get(id=id)
+        department = employee.department.id
         employee.delete()
     except Exception:
         raise Http404()
-    return redirect('/empresa/{}'.format(employee.department.company.id))
+    return redirect('/departamento/{}'.format(department))
+
+
+@login_required(login_url='/')
+def employee_page(request, id):
+    user = request.user
+    employee = Employee.objects.get(id=id)
+    return render(request, 'core/employee_page.html', {'employee': employee})
+
+
+@login_required
+def edit_employee(request, id):
+    user = request.user
+    employee = Employee.objects.get(id=id)
+    department = Department.objects.get(id=employee.department.id)
+    form = EmployeeForm(request.POST or None, instance=employee)
+    context = {'form': form, 'user': user, 'employee': employee, 'department': department}
+    if request.POST:
+        if form.is_valid():
+            form.save()
+            return redirect('/colaborador/{}'.format(id))
+    return render(request, 'core/user_form.html', context)

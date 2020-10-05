@@ -1,0 +1,91 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col" align='left'>
+      <a href="{% url 'core:department_page' employee.department.id %}" class="btn btn-light mt-3">Voltar</a>
+  </div>
+  <div class="col" align="right">
+      <a href="{% url 'core:logout' %}" class="btn btn-light">Logout</a>
+  </div>
+</div>
+
+<div align="center" class="my-4">
+    {% if employee.company.logo %}
+    <img src="{{ employee.company.logo.url }}" width="10%" style="margin-bottom: 20px;">
+    {% endif %}
+    <h2>{{ employee.company }}</h2><br>
+    <h1>{{ employee.name }}</h1>
+    <a href="{% url 'core:edit_employee' employee.id %}" class="btn btn-info">Editar Colaborador</a>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteEmployee">
+        Excluir Colaborador
+    </button>
+</div>
+
+<h3>Informações:</h3>
+<br>
+<table class="table">
+    <tbody>
+        <tr>
+            <th scope="row">Empresa</th>
+            <td>{{ employee.company }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Departamento</th>
+            <td>{{ employee.department.name }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Gênero</th>
+            <td>{{ employee.gender }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Telefone</th>
+            <td>{{ employee.phone }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Atribuição</th>
+            <td>{{ employee.role }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Idade</th>
+            <td>{{ employee.age }}</td>
+        </tr>    
+        <tr>
+            <th scope="row">Data de ingresso</th>
+            <td>{{ employee.joining_date }}</td>
+        </tr>    
+        <tr>
+            <th scope="row">Salário</th>
+            <td>{{ employee.salary }}</td>
+        </tr>    
+            
+        </tr>
+    </tbody>
+</table>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalDeleteEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Deseja mesmo excluir esta empresa?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Se a exclusão for confirmada, TODOS os dados relacionadas ao colaborador serão excluídos.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+          <form action="delete" method="post">
+              {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sim! Quero excluir</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -21,8 +21,9 @@ urlpatterns = [
    path('departamento/<uuid:id>/delete', delete_department, name='delete_department'),
 
    path('cadastrar-colaborador/<uuid:department_id>/', create_employee, name='create_employee'),
-   path('departamento/<uuid:id>/delete-employee', delete_employee, name='delete_employee'),
-
+   path('colaborador/<uuid:id>/', employee_page, name='employee_page'),
+   path('colaborador/<uuid:id>/delete', delete_employee, name='delete_employee'),
+   path('editar-colaborador/<uuid:id>/', edit_employee, name='edit_employee'),
 
 
 
