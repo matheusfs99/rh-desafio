@@ -1,1 +1,1 @@
-web: gunicorn RH-DESAFIO.wsgi
+web: gunicorn rh_desafio.wsgi
