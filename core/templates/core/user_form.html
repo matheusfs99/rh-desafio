@@ -3,104 +3,46 @@
 
 {% block content %}
 <div class="py-5 text-center">
-    <img class="d-block mx-auto mb-4" src="" alt="Logo Empresa" width="72" height="72">
-    <h2>Adicionar Colaborador</h2>
+    <img class="d-block mx-auto mb-4" src="{{ department.company.logo.url }}" alt="Logo Empresa" width="72" height="72">
+    <h2>Registro de Colaborador</h2>
 </div>
 
-<div class="row">
-
-    <div class="col align-self-center">
-        <h4 class="mb-3">Informações</h4>
-        <form class="needs-validation" novalidate>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="firstName">Nome</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                    <div class="invalid-feedback">
-                        Valid first name is required.
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="lastName">Sobrenome</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                    <div class="invalid-feedback">
-                        Valid last name is required.
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="lastName">Idade</label>
-                    <input type="number" class="form-control" id="age" placeholder="" value="" required>
-                    <div class="invalid-feedback">
-                        Valid last name is required.
-                    </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="lastName">Salario</label>
-                    <input type="number" class="form-control" id="salary" placeholder="" value="" required>
-                    <div class="invalid-feedback">
-                        Valid last name is required.
-                    </div>
-                </div>
+<form method="post">
+{% csrf_token %}
+    <div class="row mx-5">
+        <div class="col">
+            <label>Nome: </label>
+            {{ form.name }}
+            <br>
+            <label>Gênero: </label>
+            {{ form.gender }}
+            <br>
+            <label>Função: </label>
+            {{ form.role }}
+            <br>
+            <label>Usuário:</label>
+            {{ form.user }}
+        </div>
+        <div class="col">
+            <label>Idade: </label>
+            {{ form.age }}
+            <br>
+            <label>Telefone: </label>
+            {{ form.phone }}
+            <br>
+            <label>Salário:</label>
+            {{ form.salary }}
+            <br>
+            <label>Data de ingresso:</label>
+            {{ form.joining_date }}
+            <br><br>
+            <div align="center">
+                <button class="btn btn-success" type="submit">Salvar</button>
+                <a href="{% url 'core:department_page' department.id %}" class="btn btn-danger">Cancelar</a>
             </div>
-
-            <div class="d-block my-3">
-                <div class="custom-control custom-radio">
-                    <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                    <label class="custom-control-label" for="credit">Homem</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                    <label class="custom-control-label" for="debit">Mulher</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                    <label class="custom-control-label" for="paypal">Não Binario</label>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="username">Nome de Usuário</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">@</span>
-                    </div>
-                    <input type="text" class="form-control" id="username" placeholder="Username" required>
-                    <div class="invalid-feedback" style="width: 100%;">
-                        Your username is required.
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5 mb-3">
-                    <label for="country">Departamento</label>
-                    <select class="custom-select d-block w-100" id="country" required>
-                            <option value="">Selecionar...</option>
-                        </select>
-                    <div class="invalid-feedback">
-                        Please select a valid country.
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
-                </div>
-            </div>
-
-        </form>
+        </div>
     </div>
-</div>
-
+    <br>
+    
+</form>
 {% endblock %}

@@ -1,6 +1,10 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+<div align="right">
+    <a href="{% url 'core:logout' %}" class="btn btn-light">Logout</a>
+</div>
+
 <div class="py-5 text-center">
     <h1>Empresas</h1>
     <a href="{% url 'core:register_company' %}" class="btn btn-primary" style="margin-top: 20px;">Cadastrar Empresa</a>

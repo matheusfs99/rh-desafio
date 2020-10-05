@@ -1,8 +1,14 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-
-<a href="{% url 'core:companys' %}" class="btn btn-light mt-3">Voltar</a>
+<div class="row">
+    <div class="col" align='left'>
+        <a href="{% url 'core:companys' %}" class="btn btn-light mt-3">Voltar</a>
+    </div>
+    <div class="col" align="right">
+        <a href="{% url 'core:logout' %}" class="btn btn-light">Logout</a>
+    </div>
+</div>
 
 <div align="center" class="my-4">
     {% if company.logo %}

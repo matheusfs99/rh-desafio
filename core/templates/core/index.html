@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="my-5 text-center">
+    <h1>Login</h1>
+    <br>
+    <form method="post">
+    {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" name="username" class="form-control" required>
+        <br>
+        <label for="password">Senha</label>
+        <input type="password" name="password" class="form-control" required>
+        <br>
+        <button class="btn btn-primary" type="submit">Entrar</button>
+        <br>
+        <a href="{% url 'core:cadastro_user' %}">Cadastre-se</a>
+    </form>
+</div>
+
+{% endblock %}

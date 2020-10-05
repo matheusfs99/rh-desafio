@@ -1,8 +1,17 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+<div class="row">
+    <div class="col" align='left'>
+        <a href="{% url 'core:company_page' company.id %}" class="btn btn-light mt-3">Voltar</a>
+    </div>
+    <div class="col" align="right">
+        <a href="{% url 'core:logout' %}" class="btn btn-light">Logout</a>
+    </div>
+</div>
 <div class="py-5 text-center">
-    <h1>Registro de Departamento</h1>
+    <img class="d-block mx-auto mb-4" src="{{ company.logo.url }}" alt="Logo Empresa" width="72" height="72">
+    <h2>Registro de Departamento</h2>
 </div>
 <div class="mx-5">
     <form method="post">

@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="my-5 text-center">
+    <h1>Cadastre-se</h1>
+    <br>
+    <form method="post">
+    {% csrf_token %}
+        <label for="first-name">Nome</label>
+        <input type="text" name="first-name" class="form-control" required>
+        <br>
+        <label for="username">Username</label>
+        <input type="text" name="username" class="form-control" required>
+        <br>
+        <label for="password">Senha</label>
+        <input type="password" name="password" class="form-control" required>
+        <br>
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+        <a href="{% url 'core:index' %}" class="btn btn-danger">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}
